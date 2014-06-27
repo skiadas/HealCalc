@@ -1,0 +1,10 @@
+{
+	"name": "HealCalc",
+	"version": "0.0.1",
+	"dependencies": {
+		"curl": "*"
+	},
+	"ignore": [
+		"node_modules/"
+	]
+}

@@ -1,0 +1,36 @@
+{
+	"name": "HealCalc",
+	"version": "0.0.1",
+	"description": "Healing Calculator for World of Warcraft",
+	"author": "Charilaos Skiadas <cskiadas@gmail.com>",
+	"keywords": ["healcalc", "wow", "healing", "calculator", "worldofwarcraft"],
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "http://www.opensource.org/licenses/mit-license.php"
+		}
+	],
+	"repository": {
+	    "type": "git",
+	    "url": "https://github.com/skiadas/HealCalc"
+	},
+	"bugs": {
+	    "url": "https://github.com/skiadas/HealCalc/issues"
+	},
+	"maintainers": [ ],
+	"dependencies": { },
+	"devDependencies": {
+		"serv": "*",
+		"bower": "*",
+		"mocha": "*",
+		"chai": "*"
+	},
+	"script": {
+		"postinstall": "bower install",
+		"start": "serv --port 8010",
+		"test": "mocha --reporter=spec"
+	},
+	"ignore": [
+		"lib/"
+	]
+}
