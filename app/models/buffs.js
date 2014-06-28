@@ -29,7 +29,7 @@ define(function(require) {
    }
 
    function Buffs(settings) {
-      return mixin({}, defaultSettings, settings);
+      return mixin(this, defaultSettings, settings);
    }
 
    Buffs.prototype = {
@@ -41,8 +41,8 @@ define(function(require) {
                            (this.buffStats ? 1.05 : 1);
          var spellpower = (intellect + this.weaponSpellpower) * (this.buffSpellpower ? 1.1 : 1);
          var spirit     = this.baseSpirit + this.gearSpirit;
-         var critical   = this.critRating * convs.critical + 6 + (this.buffCritical ? 5 : 0);
-         var mastery    = (this.masteryRating + (this.buffMastery ? 118 : 0)) * convs.masteryRating + 8;
+         var critical   = this.criticalRating * convs.critical + 6 + (this.buffCritical ? 5 : 0);
+         var mastery    = (this.masteryRating + (this.buffMastery ? 118 : 0)) * convs.mastery + 8;
          var haste      = this.hasteRating * convs.haste;
          var adjustedHaste = (this.buffHaste ? hasteMultiply(haste, 5) : haste);
 

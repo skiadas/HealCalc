@@ -19,7 +19,7 @@ define(function(require) {
       mixin(this, specs[spec]);
    }
    
-   Spec.specs = Object.keys(specs);
+   Spec.specs = specs;
    return Spec;
 });
 
