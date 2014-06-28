@@ -36,7 +36,7 @@ define(function(require) {
       // This computes effects as if those base stats will not be further modified
       // Specs that affect base stats must first clone the object, then adjust the stats
       // and then have it compute with the adjusted stats.
-      compute = function() {
+      compute : function compute() {
          var intellect  = (this.baseIntellect + this.gearIntellect) * 1.05 *
                            (this.buffStats ? 1.05 : 1);
          var spellpower = (intellect + this.weaponSpellpower) * (this.buffSpellpower ? 1.1 : 1);
@@ -56,8 +56,23 @@ define(function(require) {
             masteryPercent : mastery * 1.25  // Needs to be overwritten by spec
          }
       },
-      clone = function() {
-         return new Buffs(this);
+      // Clones a stat/buff object, optionally amending any values in it
+      clone : function clone(amend) {
+         var cloned = new Buffs(this);
+         for (k in amend) {
+            if (amend.hasOwnProperty(k)) {
+                // amend is meant to be an object with methods
+                // For any stats that need amending (e.g. the base 5% int bonus)
+               cloned[k] = amend[k](cloned[k]);
+            }
+         }
+         return cloned;
+      },
+      specialize : function specialize(spec) {
+         return this.clone(spec.amendRatings);
+      },
+      getStats : function getStats(spec) {
+         return spec.amendStats(this.specialize(spec).compute())
       }
    }
 
