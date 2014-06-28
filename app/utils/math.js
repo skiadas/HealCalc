@@ -1,8 +1,12 @@
 (function(define) { 'use strict';
 define(function(require) {
 
-    // Multiplies all remaining haste values into base
     return {
+       percentIncrease: function(percent) {
+          var factor = 1 + percent/100;
+          return function(x) { return factor * x; };
+       },
+       // Multiplies all remaining haste values into base
        hasteMultiply: function hasteMultiply(base) {
            var args = Array.prototype.slice.apply(arguments);
            var adjusted = args.map(function(v) { return 1 + v / 100; });
