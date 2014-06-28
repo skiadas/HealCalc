@@ -3,12 +3,13 @@ define(function(require) {
 
    var math       = require('../utils/math');
    var mixin      = require('../utils/mixin');
-   var disc       = require('./spellsDisc');
-   var holy       = require('./spellsHoly');
-   var shaman     = require('./spellsShaman');
-   var druid      = require('./spellsDruid');
-   var pally      = require('./spellsPally');
-   var monk       = require('./spellsMonk');
+   var Spec       = require('./spec');
+   var disc       = require('./spell/Disc');
+   var holy       = require('./spell/Holy');
+   var shaman     = require('./spell/Shaman');
+   var druid      = require('./spell/Druid');
+   var pally      = require('./spell/Pally');
+   var monk       = require('./spell/Monk');
 
    var floor = math.floor;
    var round = math.round;
