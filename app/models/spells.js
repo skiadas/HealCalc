@@ -22,6 +22,7 @@ define(function(require) {
    }
 
    // Basic spell constructor. All spells start with that, then specialize
+   // Users of the class would not be getting access to this.
    function Spell(obj) {
       this.params = obj;
    }
@@ -90,8 +91,21 @@ define(function(require) {
       }
    }
 
-   return allSpells;   // FIXME
-   return Spell;
+   // allSpells initially contains a list of parameter settings for each spell
+   // In this for loop, we turn each parameter setting into an actual Spell object
+   
+   for (var spec in allSpells) {
+      if (allSpells.hasOwnProperty(spec)) {
+         allSpells[spec] = fixSpec(allSpells[spec], Spec.specs[spec].spellEffects || {});
+      }
+   }
+   function fixSpec(spellList, spellEffects) {
+      function fixSpell(spell) {
+         return mixin(new Spell(spell), spellEffects[spell.nick] || {});
+      }
+      return spellList.map(fixSpell);
+   }
+   return allSpells; 
 });
 
 }(typeof define == 'function' && define.amd ? define : function(factory) { module.exports = factory(require); }));
