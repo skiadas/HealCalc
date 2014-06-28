@@ -2,12 +2,12 @@
 define(function(require) {
    
    var mixin      = require('../utils/mixin');
-   var disc       = require('./spell/Disc');
-   var holy       = require('./spell/Holy');
-   var shaman     = require('./spell/Shaman');
-   var druid      = require('./spell/Druid');
-   var pally      = require('./spell/Pally');
-   var monk       = require('./spell/Monk');
+   var disc       = require('./spec/disc');
+   var holy       = require('./spec/holy');
+   var shaman     = require('./spec/shaman');
+   var druid      = require('./spec/druid');
+   var pally      = require('./spec/pally');
+   var monk       = require('./spec/monk');
 
    var specs = {
       disc : disc, holy : holy, shaman : shaman,
