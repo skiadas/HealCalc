@@ -7,18 +7,18 @@ define(function(require) {
 
    var defaultSettings = {
       baseIntellect       : 293,
-      gearIntellect       : 874,
+      gearIntellect       : 500,
       weaponSpellpower    : 313,
       baseSpirit          : 220,
       gearSpirit          : 0,
       criticalRating      : 76,
       hasteRating         : 234,
       masteryRating       : 254,
-      buffStats           : true, // 5%
-      buffSpellpower      : true, // 10%
-      buffCritical        : true, // 5%
-      buffMastery         : true, // 458???
-      buffHaste           : true, // 5%  (and multistrike?)
+      buffStats           : false, // 5%
+      buffSpellpower      : false, // 10%
+      buffCritical        : false, // 5%
+      buffMastery         : false, // 458???
+      buffHaste           : false, // 5%  (and multistrike?)
       mana                : 37000,
       level               : 90
    }
