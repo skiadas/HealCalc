@@ -5,7 +5,11 @@ define(function(require) {
    var Spec = require('./models/spec');
    var Buff = require('./models/buffs');
 
-   return { Spell : Spell, Spec : Spec, Buff : Buff }
+   var buffs = new Buff()
+   var spells = Spell.computeAll({ stats : buffs.compute() });
+   console.log(buffs.compute())
+   console.log(spells)
+   return { Spell : Spell, Spec : Spec, Buff : Buff, spells : spells }
 
 });
 

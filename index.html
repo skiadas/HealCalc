@@ -1,0 +1,36 @@
+<html>
+<body>
+
+<script>
+
+    // configure curl
+    curl = {
+        paths: { 'curl' : './lib/curl/src/curl' }
+    };
+
+</script>
+<script src="./lib/curl/src/curl.js" type="text/javascript"></script>
+<script type="text/javascript">
+    curl(
+        [
+            'app/main', // an html template
+            'curl/domReady'
+        ]
+    )
+    .then(
+        // execute this callback, passing all dependencies as params
+        function (main, domReady) {
+            domReady(function() {
+              console.log(main);
+            });
+        },
+        // execute this callback if there was a problem
+        function (ex) {
+            var msg = 'OH SNAP: ' + ex.message;
+            alert(msg);
+        }
+    );
+
+</script>
+</body>
+</html>
