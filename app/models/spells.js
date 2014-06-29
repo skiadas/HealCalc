@@ -86,8 +86,18 @@ define(function(require) {
       mpm   : function(that) { return this.mana(that) * this.cpm(that); },  // Mana per minute
       
       // Computes and returns an object of pertinent values
-      compute      : function(that) {
-         
+      compute : function(that) {
+         return {
+            nick: this.params.nick,
+            name: this.params.name,
+            heal: this.healWithMast(that),
+            avgHeal : this.avgHeal(that),
+            mana: this.mana(that),
+            castTime : this.ct(that),
+            hps : this.hps(that),
+            hpct : this.hpct(that),
+            hpm : this.hpm(that)
+         }
       }
    }
 
