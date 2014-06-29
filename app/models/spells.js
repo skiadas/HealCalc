@@ -105,7 +105,25 @@ define(function(require) {
       }
       return spellList.map(fixSpell);
    }
-   return allSpells; 
+
+   Spell.allSpells = allSpells
+   // Returns an array of the results of spell.compute on all spells
+   Spell.computeAll = function computeAll(that) {
+      var arr = [];
+      for (var spec in allSpells) {
+         if (allSpells.hasOwnProperty(spec)) {
+            allSpells[spec].forEach(function(spell) {
+               var sp = spell.compute(that);
+               sp.spec = spec;
+               arr.push(sp);
+            });
+         }
+      }
+      return arr;
+   }
+   
+
+   return Spell; 
 });
 
 }(typeof define == 'function' && define.amd ? define : function(factory) { module.exports = factory(require); }));
