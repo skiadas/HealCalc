@@ -20,6 +20,15 @@ define(function(require) {
    }
    
    Spec.specs = specs;
+   Spec.allSpecs = function() {
+      var ret = {};
+      for (var spec in specs) {
+         if (specs.hasOwnProperty(spec)) {
+            ret[spec] = new Spec(spec);
+         }
+      }
+      return ret;
+   }
    return Spec;
 });
 
