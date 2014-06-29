@@ -2,6 +2,7 @@
 define(function(require) {
    
    var percentIncrease = require('../../utils/math').percentIncrease
+   var masteryFactor = 1.25;
    return {
       settings : {
          // Used to set up spec-specific choices/talents
@@ -13,6 +14,8 @@ define(function(require) {
       },
       amendStats : function(stats) {
          // Used for post-processing of the stats. Will often do nothing to the stats
+         // Except for mastery
+         stats.masteryPercent = stats.mastery * masteryFactor;
          return stats;
       },
       spellEffects : {

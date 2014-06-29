@@ -55,7 +55,7 @@ define(function(require) {
             critical       : critical,
             mastery        : mastery,
             haste          : adjustedHaste,
-            masteryPercent : mastery * 1.25  // Needs to be overwritten by spec
+            masteryPercent : mastery  // Needs to be overwritten by spec
          }
       },
       // Clones a stat/buff object, optionally amending any values in it
