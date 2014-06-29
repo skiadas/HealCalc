@@ -43,18 +43,33 @@ define(function(require) {
       baseBasicHeal : function(that) {
          return this.params.coef * that.stats.spellpower * this.ntargets(that);
       },
+      baseBasicHot : function(that) {
+         return this.params.coefhot * that.stats.spellpower * this.ntargets(that);
+      },
       baseNtargets : function(that) { return this.params.ntargets || 1; },
       baseTimeTick : function(that) {
          return floor( this.params.timetick / (1 + that.stats.haste / 100) + 0.0005, 3 );
       },
       baseNticks : function(that) {
-         return round( this.params.nticks * this.params.timeTick / this.timeTick(that) );
+         return round( this.params.nticks * this.params.timetick / this.timeTick(that) );
       },
-      baseDot : function(that) { return this.baseHeal(that) * this.nticks(that); },
-      baseHeal : function(that) { return this.params.nticks ? this.dot(that) : this.basicHeal(that); },
-      baseHealWithMast : function(that) { return this.heal(that) * this.stats.masteryPercent / 100; },
-      baseCritChance : function(that) { return this.param.critical / 100; },
-      baseCritHeal : function(that) { return this.healWithMast(that) * 2; },
+      baseHot : function(that) { return this.basicHot(that) * this.nticks(that); },
+      baseBasicHealWithMast : function(that) {
+         return this.basicHeal(that) * (1 + that.stats.masteryPercent / 100);
+      },
+      baseHotWithMast : function(that) {
+         return this.baseHot(that) * (1 + that.stats.masteryPercent / 100);
+      },
+      baseHeal : function(that) { return this.params.nticks ? this.hot(that) : this.basicHeal(that); },
+      baseHealWithMast : function(that) {
+         return this.params.nticks ? this.hotWithMast(that) : this.basicHealWithMast(that);
+      },
+      baseCritChance : function(that) { return that.stats.critical / 100; },
+      baseCritHot : function(that) { return this.hotWithMast(that) * 2; },
+      baseCritBasicHeal : function(that) { return this.basicHealWithMast(that) * 2; },
+      baseCritHeal : function(that) {
+         return this.params.nticks ? this.critHot(that) : this.critBasicHeal(that);
+      },
       baseAvgHeal  : function(that) {
          var C = this.critChance(that); 
          return (1-C) * this.healWithMast(that) + C * this.critHeal(that);
@@ -63,17 +78,22 @@ define(function(require) {
       baseCooldown : function(that) { return this.params.cd || this.ct(that); },
       // These just turn around and call the base spells. Individual spells will overwrite
       // Methods for individual spells will still have access to base.
-      mana         : function(that) { return this.baseMana(that); },
-      basicHeal    : function(that) { return this.baseBasicHeal(that); },
-      ntargets     : function(that) { return this.baseNtargets(that); },
-      timeTick     : function(that) { return this.baseTimeTick(that); },
-      nticks       : function(that) { return this.baseNticks(that); },
-      dot          : function(that) { return this.baseDot(that); },
-      heal         : function(that) { return this.baseHeal(that); },
-      healWithMast : function(that) { return this.baseHealWithMast(that); },
-      critChance   : function(that) { return this.baseCritChance(that); },
-      critHeal     : function(that) { return this.baseCritHeal(that); },  // The total amount of a critted heal
-      avgHeal      : function(that) { return this.baseAvgHeal(that); },
+      mana              : function(that) { return this.baseMana(that); },
+      basicHeal         : function(that) { return this.baseBasicHeal(that); },
+      basicHot          : function(that) { return this.baseBasicHot(that); },
+      ntargets          : function(that) { return this.baseNtargets(that); },
+      timeTick          : function(that) { return this.baseTimeTick(that); },
+      nticks            : function(that) { return this.baseNticks(that); },
+      hot               : function(that) { return this.baseHot(that); },
+      heal              : function(that) { return this.baseHeal(that); },
+      hotWithMast       : function(that) { return this.baseHotWithMast(that); },
+      basicHealWithMast : function(that) { return this.baseBasicHealWithMast(that); },
+      healWithMast      : function(that) { return this.baseHealWithMast(that); },
+      critChance        : function(that) { return this.baseCritChance(that); },
+      critHot           : function(that) { return this.baseCritHot(that); },
+      critBasicHeal     : function(that) { return this.baseCritBasicHeal(that); },
+      critHeal          : function(that) { return this.baseCritHeal(that); },  // The total amount of a critted heal
+      avgHeal           : function(that) { return this.baseAvgHeal(that); },
       // The following are computing basic values based on the heal amount
       // In theory there should be no need for overwriting most/any of them
       ct    : function(that) { return max (this.params.ct / (1 + that.stats.haste / 100), 1); },
