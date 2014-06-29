@@ -45,7 +45,7 @@ define(function(require) {
       },
       baseNtargets : function(that) { return this.params.ntargets || 1; },
       baseTimeTick : function(that) {
-         return floor( this.params.timeTick / (1 + that.stats.haste) + 0.0005, 3 );
+         return floor( this.params.timetick / (1 + that.stats.haste / 100) + 0.0005, 3 );
       },
       baseNticks : function(that) {
          return round( this.params.nticks * this.params.timeTick / this.timeTick(that) );
@@ -60,7 +60,7 @@ define(function(require) {
          return (1-C) * this.healWithMast(that) + C * this.critHeal(that);
       },
        // Base cooldown is the cast time unless otherwise specified
-      baseCooldown : function(that) { return max(this.params.cd, this.ct(that)); },
+      baseCooldown : function(that) { return this.params.cd || this.ct(that); },
       // These just turn around and call the base spells. Individual spells will overwrite
       // Methods for individual spells will still have access to base.
       mana         : function(that) { return this.baseMana(that); },
@@ -76,7 +76,7 @@ define(function(require) {
       avgHeal      : function(that) { return this.baseAvgHeal(that); },
       // The following are computing basic values based on the heal amount
       // In theory there should be no need for overwriting most/any of them
-      ct    : function(that) { return max (this.params.ct / that.stats.haste, 1); },
+      ct    : function(that) { return max (this.params.ct / (1 + that.stats.haste / 100), 1); },
       cd    : function(that) { return this.baseCooldown(that); }, // Cooldown, in seconds
       cpm   : function(that) { return 60 / this.cd(that); },      // Casts per minute
       hps   : function(that) { return this.avgHeal(that) / this.cd(that); }, // Healing per cooldown
