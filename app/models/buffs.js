@@ -19,6 +19,7 @@ define(function(require) {
       buffCritical        : true, // 5%
       buffMastery         : true, // 458???
       buffHaste           : true, // 5%  (and multistrike?)
+      mana                : 37000,
       level               : 90
    }
 
@@ -47,6 +48,7 @@ define(function(require) {
          var adjustedHaste = (this.buffHaste ? hasteMultiply(haste, 5) : haste);
 
          return {
+            mana           : this.mana,
             intellect      : intellect,
             spellpower     : spellpower,
             spirit         : spirit,
